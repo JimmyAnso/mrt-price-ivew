@@ -8,67 +8,81 @@
         <img src="../../public/image/metro_taipei_logo.png" alt=""
       /></a>
     </div>
-    <div class="home__point"></div>
-    <div class="home__select">
-      <!-- props in , emit out -->
-      <!-- 起點 -->
-      <StartSelector
-        :cls="start.cls"
-        :title="start.title"
-        v-model:lineVmodel="input.startLineID"
-        @getStationDataHook="getStartStationData"
-        :lineData="lineData"
-        :stationData="startStationData"
-        v-model:stationVmodel="input.startStationID"
-        @stationChangeHook="startStationChange"
-      ></StartSelector>
-      <!-- 目的地 -->
-      <EndSelector
-        :cls="end.cls"
-        :title="end.title"
-        v-model:lineVmodel="input.endLineID"
-        @getStationDataHook="getEndStationData"
-        :lineData="lineData"
-        :stationData="endStationData"
-        v-model:stationVmodel="input.endStationID"
-        @stationChangeHook="endStationChange"
-      ></EndSelector>
+    <Divider />
+    <!-- 起點 -->
+    <Row type="flex" justify="space-between" class="code-row-bg selector">
+      <Col span="7" offset="1">
+        <p>{{ start.title }}：</p>
+      </Col>
 
-      <!-- <Selectortwo
-        :cls="end.cls"
-        :title="end.title"
-        v-model:lineVmodel="input.endLineID"
-        @getStationDataHook="getEndStationData"
-        :lineData="lineData"
-        :stationData="endStationData"
-        v-model:stationVmodel="input.endStationID"
-        @stationChangeHook="endStationChange"
-      ></Selectortwo> -->
-    </div>
+      <Col span="7" offset="1">
+        <Select v-model="input.startLineID" @input="getStartStationData">
+          <Option v-for="item in lineData" :key="item" :value="item.LineID"
+            >{{ item.LineID }}{{ item.LineName.Zh_tw }}</Option
+          >
+        </Select>
+      </Col>
+
+      <Col span="7" offset="1">
+        <Select v-model="input.startStationID" @input="startStationChange">
+          <Option
+            v-for="item in startStationData.Stations"
+            :key="item"
+            :value="item.StationID"
+            >{{ item.StationName.Zh_tw }}</Option
+          >
+        </Select>
+      </Col>
+    </Row>
+    <!-- 終點 -->
+    <Row type="flex" justify="space-between" class="code-row-bg selector">
+      <Col span="7" offset="1">
+        <p>{{ end.title }}：</p>
+      </Col>
+
+      <Col span="7" offset="1">
+        <Select v-model="input.endLineID" @input="getEndStationData">
+          <Option v-for="item in lineData" :key="item" :value="item.LineID"
+            >{{ item.LineID }}{{ item.LineName.Zh_tw }}</Option
+          >
+        </Select>
+      </Col>
+
+      <Col span="7" offset="1">
+        <Select v-model="input.endStationID" @input="endStationChange">
+          <Option
+            v-for="item in endStationData.Stations"
+            :key="item"
+            :value="item.StationID"
+            >{{ item.StationName.Zh_tw }}</Option
+          >
+        </Select>
+      </Col>
+    </Row>
 
     <!-- 按鈕 -->
     <div class="home__button">
-      <button class="home__button--reset" @click="resetAll">重選</button>
-      <button
-        class="home__button--submit"
-        v-bind:class="{ searchActive: searchIsActive }"
-        @click="getPrice"
-      >
-        查詢
-      </button>
+      <ButtonGroup size="large" shape="circle">
+        <Button @click="resetAll" type="primary" icon="md-refresh">重選</Button>
+      </ButtonGroup>
+
+      <ButtonGroup size="large" shape="circle">
+        <Button
+          id="test"
+          v-bind:class="{ searchActive: searchIsActive }"
+          @click="getPrice"
+          type="primary"
+          icon="ios-search"
+          >查詢</Button
+        >
+      </ButtonGroup>
     </div>
-    <Button type="primary">Button</Button>
-    <Button type="primary">Button</Button>
-    <Button type="primary">Button</Button>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import jsSHA from "jssha";
-import StartSelector from "../components/Selector";
-// import EndSelector from "../components/Selector";
-import EndSelector from "../components/Selectortwo";
 export default {
   data() {
     return {
@@ -105,11 +119,6 @@ export default {
       endStationName: null,
     };
   },
-  components: {
-    StartSelector,
-    EndSelector,
-    // Selectortwo
-  },
   computed: {
     getPriceDataUrl() {
       return (
@@ -131,7 +140,7 @@ export default {
       }
     },
   },
-  beforeEnter(){
+  beforeEnter() {
     this.input.startStationID = null;
     this.input.endStationID = null;
   },
@@ -145,6 +154,19 @@ export default {
     this.input.endStationID = null;
   },
   methods: {
+    warning() {
+      this.$Message.warning("This is a warning tip");
+    },
+    error() {
+      this.$Message.error("This is an error tip");
+    },
+    closable() {
+      this.$Message.info({
+        content: "Tips for manual closing",
+        duration: 10,
+        closable: true,
+      });
+    },
     getAPI(currentUrl, currentFun) {
       const options = {
         method: "GET",
@@ -161,7 +183,8 @@ export default {
         .catch(function (error) {
           // handle error
           console.log(error);
-          alert('請完成填選 "起點" 與 "目的地"');
+
+          // alert('請完成填選 "起點" 與 "目的地"');
         });
       return;
     },
@@ -195,6 +218,10 @@ export default {
     // 起點取得站
     getStartStationData(lineVmodel) {
       this.input.startLineID = lineVmodel;
+      console.log("this.input.startLineID:", this.input.startLineID);
+
+      // this.lineData
+      console.log("this.lineData:", this.lineData);
 
       this.startLineName = this.lineData.find(
         (line) => line.LineID == this.input.startLineID
@@ -232,20 +259,26 @@ export default {
     },
     // 取得票價Handler
     getPrice() {
-      this.getAPI(this.getPriceDataUrl, this.getPriceHandler).then(() => {
-        // this.goToResult() executed
-        if (this.priceAdult && this.priceSeniorDisabled) {
-          this.goToResult();
-        }
-      });
-      console.log("起點：");
-      console.log(this.input.startLineID);
-      console.log(this.input.startStationID);
+      if (
+        this.input.startStationID != null &&
+        this.input.endStationID != null
+      ) {
+        this.getAPI(this.getPriceDataUrl, this.getPriceHandler).then(() => {
+          // this.goToResult() executed
+          if (this.priceAdult && this.priceSeniorDisabled) {
+            this.goToResult();
+          }
+        });
+        console.log("起點：");
+        console.log(this.input.startLineID);
+        console.log(this.input.startStationID);
 
-      console.log("目的地：");
-      console.log(this.input.endLineID);
-      console.log(this.input.endStationID);
-
+        console.log("目的地：");
+        console.log(this.input.endLineID);
+        console.log(this.input.endStationID);
+      } else {
+        this.$Message.warning('請完成填選 "起點" 與 "目的地"');
+      }
     },
     goToResult() {
       this.$router.push({
@@ -295,96 +328,49 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&display=swap");
-$charcoal: #434a42;
-$tealblue: #007ab0;
-%container {
+.home__logo,
+.home__button {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin-bottom: 45px;
 }
-%hamburger {
-  display: block;
-  width: 100%;
-  height: 4px;
-  border-radius: 4px;
-  background-color: #000;
-  margin-bottom: 4px;
-  transition: 0.3s;
-}
-%button {
+.home__button--reset,
+.home__button--submit {
   font-size: 18px;
   border-radius: 100px;
   padding: 15px 60px;
   border: none;
-  &:hover {
-    cursor: pointer;
-    color: white;
-    background-color: #0097d9;
-  }
+}
+.home__button--reset:hover,
+.home__button--submit:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #0097d9;
 }
 .home {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  &__logo {
-    @extend %container;
-  }
-  &__title {
-    font-family: "Noto Sans", sans-serif;
-    font-family: "Noto Sans TC", sans-serif;
-    font-family: "Noto Serif TC", serif;
-  }
-  &__point {
-    margin-bottom: 45px;
-    height: 6px;
-    width: 6px;
-    background-color: lightgray;
-    border-radius: 50%;
-    box-shadow: 20px 0 0 lightgray, -20px 0 0 lightgray;
-  }
-  &__select {
-    @extend %container;
-    flex-direction: column;
-
-    /deep/ &--container {
-      @extend %container;
-    }
-    // HTML <select>
-    /deep/ &--item {
-      width: 130px;
-      height: 50px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 0 10px;
-      font-size: 14px;
-    }
-    // HTML <option>
-    /deep/ &--option {
-      font-size: 14px;
-      width: 130px;
-      padding: 0 10px;
-    }
-  }
-  &__button {
-    @extend %container;
-    &--reset {
-      @extend %button;
-    }
-    &--submit {
-      @extend %button;
-      &.searchActive {
-        color: white;
-        background-color: $tealblue;
-        &:hover {
-          background-color: #0097d9;
-        }
-      }
-    }
-  }
+}
+.home__title {
+  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans TC", sans-serif;
+  font-family: "Noto Serif TC", serif;
+}
+.home__button--submit.searchActive {
+  color: white;
+  background-color: #007ab0;
+}
+.home__button--submit.searchActive:hover {
+  background-color: #0097d9;
+}
+.selector{
+  width:100%;
+  margin-bottom:10%;
 }
 </style>

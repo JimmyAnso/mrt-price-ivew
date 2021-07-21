@@ -1,8 +1,27 @@
 <template>
   <div class="header">
     <div class="header__menu">
+      <Menu mode="horizontal" :theme="theme1" active-name="1" class="menu">
+        <router-link
+          to="/home"
+          @click="hamStatusFalse"
+          class="router-link-active"
+          ><MenuItem name="1">
+            <Icon type="ios-train" />
+            台北捷運票價
+          </MenuItem></router-link
+        >
+
+        <router-link to="/about" @click="hamStatusFalse"
+          ><MenuItem name="2"
+            ><Icon type="ios-paper" />
+            關於此程式
+          </MenuItem></router-link
+        >
+      </Menu>
+
       <!-- hamburger 3span -->
-      <input type="checkbox" id="hamburger-control" v-model="hamStatus" />
+      <input type="checkbox" id="hamburger-control" v-model="menuSwitch" />
 
       <label class="header__menu--hamburger" for="hamburger-control">
         <span class="top"></span>
@@ -10,16 +29,36 @@
         <span class="bottom"></span>
       </label>
 
-      <!-- 導覽列 -->
-      <nav class="header__menu--nav" :class="{navAvailable: hamStatus}">
-        <router-link to="/home" @click="hamStatusFalse" class="router-link-active"
-          >台北捷運票價<img src="../../public/image/dropdown-icon.png" alt=""
-        /></router-link>
-        <router-link to="/about" @click="hamStatusFalse"
-          >關於此程式<img src="../../public/image/dropdown-icon.png" alt=""
-        /></router-link>
-        
-      </nav>
+      <Drawer
+        title="Menu"
+        placement="top"
+        v-model="menuSwitch"
+        :mask-closable="true"
+        height="160"
+        class-name="aaa"
+      >
+        <router-link to="/home">
+          <Button
+            type="text"
+            @click="menuSwitch = false"
+            class="router-link-button"
+          >
+            <Icon type="logo-usd" /> 台北捷運票價
+          </Button>
+        </router-link>
+
+        <Divider class="header__divider" />
+
+        <router-link to="/about">
+          <Button
+            type="text"
+            @click="menuSwitch = false"
+            class="router-link-button"
+          >
+            <Icon type="ios-paper" /> 關於此程式
+          </Button>
+        </router-link>
+      </Drawer>
     </div>
     <div class="header__github">
       <a
@@ -29,45 +68,42 @@
         <img src="../../public/image/Github.png" alt="" />
       </a>
     </div>
-    <div class="positionAbsolute" :class="{header__mask:hamStatus}" @click="hamStatusFalse"></div>
+    <div
+      class="positionAbsolute"
+      :class="{ header__mask: hamStatus }"
+      @click="hamStatusFalse"
+    ></div>
   </div>
-  
 </template>
 
 <script>
 export default {
   data() {
     return {
+      menuSwitch: false,
       hamStatus: false,
     };
   },
-  computed: {
-    // hamStatus(){
-    //   // if
-      
-    // },
-  },
   methods: {
     hamStatusFalse() {
-      this.hamStatus=false;
-      // document.getElementById("hamburger-control").checked = false;
+      this.hamStatus = false;
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap");
-$tealblue: #007ab0;
-$charcoal: #434a42;
-%container {
+.header {
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin-bottom: 45px;
 }
-%hamburger {
+.header__menu--hamburger .top,
+.header__menu--hamburger .middle,
+.header__menu--hamburger .bottom {
   display: block;
   width: 100%;
   height: 4px;
@@ -77,139 +113,87 @@ $charcoal: #434a42;
   transition: 0.3s;
 }
 .header {
-  @extend %container;
   box-shadow: 0 5px 10px -10px black;
-  &__menu {
-    display: flex;
-    margin-left: 25px;
-    #hamburger-control {
-      display: none;
-    }
-    // hamburger 3span
-    &--hamburger {
-      display: none;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      position: relative;
-      width: 40px;
-      height: 40px;
-      &:hover {
-        cursor: pointer;
-      }
-      .top {
-        @extend %hamburger;
-      }
-      .middle {
-        @extend %hamburger;
-        width: 60%;
-        transform: translate(-32%, 0%);
-      }
-      .bottom {
-        @extend %hamburger;
-        margin-bottom: 0px;
-      }
-    }
-
-    &--nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: white;
-      transition: 0.5s;
-      .router-link-exact-active {
-        color: $tealblue;
-      }
-      a {
-        text-decoration: none;
-        padding: 8px 25px;
-        color: $charcoal;
-        font-size: 18px;
-        box-shadow: 0px 0 2px 0px lightgray;
-        &:hover {
-          color: #0097d9;
-          border-bottom: 2px solid#0097d9;
-        }
-        img {
-          display: none;
-        }
-      }
-    }
-  }
-  &__github {
-    margin-right: 18px;
-    a {
-      img {
-        vertical-align: middle;
-      }
-    }
-  }
-  &__mask{
-    display:none;
-    top:130px;
-    bottom:0;
-    right:0;
-    left:0;
-    background-color:$charcoal;
-    opacity: 0.41;
-  }
-  .positionAbsolute{
-    position:absolute;
-  }
+}
+.header__menu {
+  display: flex;
+  margin-left: 25px;
+}
+.header__menu #hamburger-control {
+  display: none;
+}
+.header__menu--hamburger {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  margin: auto;
+}
+.header__menu--hamburger:hover {
+  cursor: pointer;
+}
+.header__menu--hamburger .middle {
+  width: 60%;
+  transform: translate(-32%, 0%);
+}
+.header__menu--hamburger .bottom {
+  margin-bottom: 0px;
+}
+.header__github {
+  margin-right: 18px;
+}
+.header__github a img {
+  vertical-align: middle;
+}
+.header__mask {
+  display: none;
+  top: 130px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #434a42;
+  opacity: 0.41;
+}
+.header .positionAbsolute {
+  position: absolute;
+}
+.router-link-button {
+  border: none;
+  outline: none;
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+}
+.header__divider {
+  margin: 5px 0;
 }
 @media screen and (max-width: 768px) {
+  .menu {
+    display: none;
+  }
   .header {
     justify-content: space-between;
-    &__menu {
-      &--hamburger {
-        display: flex;
-      }
-      &--nav {
-        width: 100%;
-        display: none;
-        position: absolute;
-        top: 45px;
-        left: 0%;
-        a {
-          img {
-            display: block;
-          }
-        }
-      }
-      .navUnavailable {
-        display:none;
-      }
-      .navAvailable{
-        display:block;
-      }
-      #hamburger-control:checked {
-        & ~ .header__menu--hamburger {
-          .top {
-            transform: translate(0%, 240%) rotate(45deg);
-          }
-          .middle {
-            opacity: 0;
-          }
-          .bottom {
-            transform: translate(0%, -240%) rotate(-45deg);
-          }
-        }
-        & ~ .header__menu--nav {
-          // display: block;
-          top: 45px;
-          a {
-            display: flex;
-            justify-content: space-between;
-            img {
-              object-fit: none;
-            }
-          }
-        }
-      }
-    }
-    &__mask{
-      display:block;
-    }
+  }
+  .header__menu--hamburger {
+    display: flex;
+  }
+  .header__menu .navUnavailable {
+    display: none;
+  }
+  .header__menu #hamburger-control:checked ~ .header__menu--hamburger .top {
+    transform: translate(0%, 240%) rotate(45deg);
+  }
+  .header__menu #hamburger-control:checked ~ .header__menu--hamburger .middle {
+    opacity: 0;
+  }
+  .header__menu #hamburger-control:checked ~ .header__menu--hamburger .bottom {
+    transform: translate(0%, -240%) rotate(-45deg);
+  }
+  .header__mask {
+    display: block;
   }
 }
 @media screen and (max-width: 576px) {

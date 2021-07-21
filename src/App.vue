@@ -1,78 +1,56 @@
 <template>
-  <div class="app">
-    <Header />
+  <div class="mrt">
+    <MyHeader />
     <router-view class="main"></router-view>
-    <Footer />
+    <MyFooter />
   </div>
 </template>
 
 <script>
-// import axios from "axios";
-// import jsSHA from "jssha";
 import Selector from "./components/Selector";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-// import HelloWorld from './components/HelloWorld.vue'
+import MyHeader from "./components/Header";
+import MyFooter from "./components/Footer";
 
 export default {
-  name: 'app',
   components: {
-    Header,
+    MyHeader,
     Selector,
-    Footer,
-    // HelloWorld,
+    MyFooter,
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="css">
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap");
 
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 * {
   margin: 0;
   padding: 0;
   font-family: "Noto Sans TC", sans-serif;
 }
-.mrt {
-  .main {
-    min-height: calc(100vh - 140px);
-    padding: 0 35%;
-  }
+.mrt .main {
+  min-height: calc(100vh - 141px);
+  padding: 0 35%;
+  position: relative;
 }
 @media screen and (max-width: 1200px) {
-  .mrt {
-    .main {
-      padding: 0 30%;
-    }
+  .mrt .main {
+    padding: 0 30%;
   }
 }
 @media screen and (max-width: 992px) {
-  .mrt {
-    .main {
-      padding: 0 25%;
-    }
+  .mrt .main {
+    padding: 0 25%;
   }
 }
 @media screen and (max-width: 768px) {
-  .mrt {
-    .main {
-      padding: 0 20%;
-    }
+  .mrt .main {
+    padding: 0 20%;
   }
 }
 @media screen and (max-width: 576px) {
-  .mrt {
-    .main {
-      padding: 0 5%;
-    }
+  .mrt .main {
+    padding: 0 5%;
   }
 }
 </style>

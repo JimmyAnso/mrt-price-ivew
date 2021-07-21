@@ -8,17 +8,13 @@
 export default {};
 </script>
 
-<style lang="scss" scoped>
-$charcoal: #434a42;
+<style lang="css" scoped>
 footer {
-  width: 100vw;
-  background-color: $charcoal;
+  width: 100%;
+  background-color: #434a42;
   color: white;
   font-size: 14px;
   padding: 15px 0;
-  // position: absolute;
-  // bottom: 0;
   text-align: center;
 }
-
 </style>
