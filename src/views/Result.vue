@@ -24,13 +24,13 @@
         <Row class="result__output">
           <Col span="12">
             <Card class="general output">
-              <p slot="title" class="title">普通</p>
+              <p slot="title">普通</p>
               <p>{{ $route.query.adult }} <span>元</span></p>
             </Card></Col
           >
           <Col span="12">
             <Card class="seniorDisabled output">
-              <p slot="title" class="title">敬老/愛心</p>
+              <p slot="title">敬老/愛心</p>
               <p>{{ $route.query.disabled }} <span>元</span></p>
             </Card>
           </Col>
@@ -157,28 +157,6 @@ export default {
   margin-bottom: 40px;
   border-radius: 5px;
 }
-.result__output .general .title {
-  /* border-right: 2px solid white;
-  border-radius: 5px 0 0 0; */
-}
-.result__output .general .price {
-  /* border-right: 2px solid lightgray;
-  border-radius: 0 0 0 5px; */
-}
-.result__output .seniorDisabled .title {
-  /* border-radius: 0 5px 0 0; */
-}
-.result__output .seniorDisabled .price {
-  /* border-radius: 0 0 5px 0; */
-}
-.result__output .output .title {
-  background-color: #434a42;
-  color: white;
-  /* padding: 15px 20px; */
-  /* width: 80px; */
-  /* height: 25px; */
-  text-align: center;
-}
 .result__output .output .price {
   text-align: center;
   padding: 25px;
@@ -196,14 +174,6 @@ export default {
   font-size: 18px;
   text-decoration: none;
   position: relative;
-}
-.result__about::after {
-  /* content: "";
-  width: 100%;
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  border-bottom: 2px solid #007ab0; */
 }
 .buttongroup{
   margin:0 20%;

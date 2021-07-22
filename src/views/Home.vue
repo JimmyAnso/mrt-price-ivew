@@ -144,10 +144,6 @@ export default {
     this.input.startStationID = null;
     this.input.endStationID = null;
   },
-  // beforeRouteEnter(){
-  //   this.input.startStationID = null;
-  //   this.input.endStationID = null;
-  // },
   created() {
     this.getLineData();
     this.input.startStationID = null;
