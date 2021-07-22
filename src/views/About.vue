@@ -241,6 +241,10 @@ export default {
   color: white;
   background-color: rgba(21, 176, 0, 0.37);
 }
+.about__title p{
+  padding-left: 30px;
+  font-size: 15px;
+}
 
 #rate {
   margin-top: 50%;
