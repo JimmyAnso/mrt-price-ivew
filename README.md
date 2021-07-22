@@ -1,5 +1,8 @@
 # mrt-price-ivew
 
+## Github Pages
+https://jimmyanso.github.io/mrt-price-ivew/
+
 ## Project setup
 ```
 yarn install
