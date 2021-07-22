@@ -39,7 +39,7 @@
         <div class="result__button">
 
           <ButtonGroup size="large" shape="circle" class="buttongroup">
-            <Button @click="goBack" type="primary" icon="ios-arrow-back"
+            <Button @click="goBack" type="info" icon="ios-arrow-back"
               >重新查詢</Button
             >
           </ButtonGroup>
@@ -47,7 +47,7 @@
           <ButtonGroup size="large" shape="circle" class="buttongroup">
             <Button
               @click="copyUrlToClipboard"
-              type="primary"
+              type="warning"
               icon="ios-download-outline"
               >複製連結</Button
             >

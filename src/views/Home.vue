@@ -63,7 +63,7 @@
     <!-- 按鈕 -->
     <div class="home__button">
       <ButtonGroup size="large" shape="circle">
-        <Button @click="resetAll" type="primary" icon="md-refresh">重選</Button>
+        <Button @click="resetAll" type="success" icon="md-refresh">重選</Button>
       </ButtonGroup>
 
       <ButtonGroup size="large" shape="circle">

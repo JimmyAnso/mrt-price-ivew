@@ -1,23 +1,28 @@
 <template>
   <div class="about">
     <Card shadow>
-      <div class="about__header">
+      <div class="about__header" id="profile">
         <img src="../../public/image/about.png" alt="" class="pic" />
         <div class="txt">
           <h3>林俊安</h3>
           <h3>Jimmy Lin</h3>
-          <Icon type="md-mail" color="pink" size="20" />：<a
+          <a
             href="https://tw.mail.yahoo.com/d/folders/1?.intl=tw&.lang=zh-Hant-TW"
-            target="_blank"
-            >jimmy123698745@yahoo.com.tw</a
-          >
+            target="_blank" class="about__header--firsta"
+            ><Icon type="md-mail" size="25" color="#FFDD00"
+          /></a>
+          <a href="https://codepen.io/jimmyanso" target="_blank"><Icon type="logo-codepen" size="25" color="#F15A22" /></a>
+          <a href="https://hackmd.io/@WnIdSEF4Qpe0GD_hA09AZA" target="_blank"
+            ><Icon type="md-code-working" size="25" color="#5FAD46"
+          /></a>
+          <a href="https://github.com/JimmyAnso" target="_blank"><Icon type="logo-github" size="25" color="#478FCD" /></a>
         </div>
       </div>
     </Card>
 
     <Alert show-icon class="about__title">
-      認知，決定看世界的視角。
       <Icon type="md-pricetags" slot="icon"></Icon>
+      <p>認知，決定看世界的視角。</p>
     </Alert>
 
     <Collapse simple id="content" class="collapse">
@@ -71,7 +76,7 @@
 
                 <li>
                   <Tooltip
-                    content="使用 vue router 管理路由 - hash mode"
+                    content="使用 vue router-hash mode 管理路由"
                     placement="right"
                   >
                     <Button type="primary" ghost>router</Button>
@@ -108,8 +113,39 @@
                   >2021/07/20 - view ui 切版 & 資料流處理</TimelineItem
                 >
                 <TimelineItem color="red">2021/07/21 - 畫面細修</TimelineItem>
-                <TimelineItem color="red">2021/07/22 - 部屬</TimelineItem>
+                <TimelineItem color="blue">2021/07/22 - 部屬</TimelineItem>
               </Timeline>
+            </Col>
+          </Row>
+        </p>
+      </Panel>
+    </Collapse>
+
+    <Collapse simple id="used" class="collapse">
+      <Panel name="about__used" class="collapse__panel">
+        本專案所使用到的 View UI
+        <p slot="content" class="collapse__content">
+          <Row class="code-row-bg">
+            <Col offset="2">
+              <Tag type="dot" size="medium" color="#F2AF1D">Color</Tag>
+              <Tag type="dot" size="medium" color="#015077">Button</Tag>
+              <Tag type="dot" size="medium" color="#EDC9E0">Icon</Tag>
+              <Tag type="dot" size="medium" color="#F245BB">Row/Col</Tag>
+              <Tag type="dot" size="medium" color="#FEC748">Card</Tag>
+              <Tag type="dot" size="medium" color="#D92139">Collapse</Tag>
+              <Tag type="dot" size="medium" color="#AEC33A">Divider</Tag>
+              <Tag type="dot" size="medium" color="#253F58">Menu</Tag>
+              <Tag type="dot" size="medium" color="#33C7F7">Anchor</Tag>
+              <Tag type="dot" size="medium" color="#FFA2D3">Select</Tag>
+              <Tag type="dot" size="medium" color="#FD9735">Rate</Tag>
+              <Tag type="dot" size="medium" color="#A1268E">Alert</Tag>
+              <Tag type="dot" size="medium" color="#9EDAE3">Message</Tag>
+              <Tag type="dot" size="medium" color="#FEE19F">Drawer</Tag>
+              <Tag type="dot" size="medium" color="#181B46">Tooltip</Tag>
+              <Tag type="dot" size="medium" color="#85CFB4">Tag</Tag>
+              <Tag type="dot" size="medium" color="#ED186B">TimeLine</Tag>
+              <Tag type="dot" size="medium" color="#A299CA">BackTop</Tag>
+              <Tag type="dot" size="medium" color="#712333">Affix</Tag>
             </Col>
           </Row>
         </p>
@@ -146,9 +182,11 @@
     </Row>
 
     <Anchor offset-top="200" show-ink class="anchor">
+      <AnchorLink href="#profile" title="個人資訊" />
       <AnchorLink href="#content" title="關於台北捷運票價查詢" />
       <AnchorLink href="#tech" title="Technology Stack" />
       <AnchorLink href="#time" title="View UI for vue 開發時間軸" />
+      <AnchorLink href="#used" title="本專案所使用到的 View UI" />
       <AnchorLink href="#origin" title="原始專案參考" />
       <AnchorLink href="#rate" title="評價" />
     </Anchor>
@@ -189,6 +227,12 @@ export default {
 }
 .about__header .txt h3 {
   font-weight: 500;
+}
+.about__header a{
+  line-height: 40px;
+}
+.about__header .txt .about__header--firsta~a{
+  margin-left:15px;
 }
 .about__title {
   padding: 10px;

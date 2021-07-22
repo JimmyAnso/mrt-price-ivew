@@ -6,14 +6,14 @@
           to="/home"
           @click="hamStatusFalse"
           class="router-link-active"
-          ><MenuItem name="1">
+          ><MenuItem name="1" class="menu__item">
             <Icon type="ios-train" />
             台北捷運票價
           </MenuItem></router-link
         >
 
         <router-link to="/about" @click="hamStatusFalse"
-          ><MenuItem name="2"
+          ><MenuItem name="2" class="menu__item"
             ><Icon type="ios-paper" />
             關於此程式
           </MenuItem></router-link
@@ -21,13 +21,15 @@
       </Menu>
 
       <!-- hamburger 3span -->
-      <input type="checkbox" id="hamburger-control" v-model="menuSwitch" />
+      <Affix :offset-top="3">
+        <input type="checkbox" id="hamburger-control" v-model="menuSwitch" />
 
-      <label class="header__menu--hamburger" for="hamburger-control">
-        <span class="top"></span>
-        <span class="middle"></span>
-        <span class="bottom"></span>
-      </label>
+        <label class="header__menu--hamburger" for="hamburger-control">
+          <span class="top"></span>
+          <span class="middle"></span>
+          <span class="bottom"></span>
+        </label>
+      </Affix>
 
       <Drawer
         title="Menu"
@@ -62,10 +64,17 @@
     </div>
     <div class="header__github">
       <a
-        href="https://github.com/JimmyAnso/mrt-price/tree/main"
+        href="https://github.com/JimmyAnso/mrt-price-ivew/tree/main"
         target="_blank"
       >
-        <img src="../../public/image/Github.png" alt="" />
+        <Icon
+          type="md-code"
+          class="header__github--icon"
+          size="36"
+          color="black"
+        />
+        <!-- <Icon type="md-git-branch" class="header__github--icon" size="36" color="black"/> -->
+        <!-- <Icon class="header__github--icon" type="logo-github" size="36" color="black"/> -->
       </a>
     </div>
     <div
@@ -100,6 +109,7 @@ export default {
   justify-content: space-around;
   align-items: center;
   margin-bottom: 45px;
+  background-color: white;
 }
 .header__menu--hamburger .top,
 .header__menu--hamburger .middle,
@@ -119,6 +129,9 @@ export default {
   display: flex;
   margin-left: 25px;
 }
+.menu__item {
+  font-size: 18px;
+}
 .header__menu #hamburger-control {
   display: none;
 }
@@ -131,6 +144,12 @@ export default {
   width: 40px;
   height: 40px;
   margin: auto;
+  padding: 3px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0px 0px 5px 1px lightgray;
+  opacity: 0.8;
 }
 .header__menu--hamburger:hover {
   cursor: pointer;
@@ -145,8 +164,25 @@ export default {
 .header__github {
   margin-right: 18px;
 }
-.header__github a img {
-  vertical-align: middle;
+.header__github--icon {
+  padding: 5px;
+  position: relative;
+}
+.header__github--icon::after {
+  content: "";
+  position: absolute;
+  width: 2.5px;
+  height: 25px;
+  background-color: black;
+  top: 23%;
+  /* right: 100; */
+  left: 47.5%;
+  transform: rotate(0.05turn);
+  transition: .3s;
+  opacity: 0;
+}
+.header__github--icon:hover::after{
+  opacity: 1;
 }
 .header__mask {
   display: none;
