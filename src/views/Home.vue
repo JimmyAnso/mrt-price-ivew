@@ -11,11 +11,11 @@
     <Divider />
     <!-- 起點 -->
     <Row type="flex" justify="space-between" class="code-row-bg selector">
-      <Col span="7" offset="1">
+      <Col>
         <p>{{ start.title }}：</p>
       </Col>
 
-      <Col span="7" offset="1">
+      <Col span="10">
         <Select v-model="input.startLineID" @input="getStartStationData">
           <Option v-for="item in lineData" :key="item" :value="item.LineID"
             >{{ item.LineID }}{{ item.LineName.Zh_tw }}</Option
@@ -23,7 +23,7 @@
         </Select>
       </Col>
 
-      <Col span="7" offset="1">
+      <Col span="10">
         <Select v-model="input.startStationID" @input="startStationChange">
           <Option
             v-for="item in startStationData.Stations"
@@ -36,11 +36,11 @@
     </Row>
     <!-- 終點 -->
     <Row type="flex" justify="space-between" class="code-row-bg selector">
-      <Col span="7" offset="1">
+      <Col>
         <p>{{ end.title }}：</p>
       </Col>
 
-      <Col span="7" offset="1">
+      <Col span="10">
         <Select v-model="input.endLineID" @input="getEndStationData">
           <Option v-for="item in lineData" :key="item" :value="item.LineID"
             >{{ item.LineID }}{{ item.LineName.Zh_tw }}</Option
@@ -48,7 +48,7 @@
         </Select>
       </Col>
 
-      <Col span="7" offset="1">
+      <Col span="10">
         <Select v-model="input.endStationID" @input="endStationChange">
           <Option
             v-for="item in endStationData.Stations"
