@@ -6,7 +6,7 @@
         <div class="txt">
           <h3>林俊安</h3>
           <h3>Jimmy Lin</h3>
-          <Icon type="md-mail" color="pink" size="20"/>：<a
+          <Icon type="md-mail" color="pink" size="20" />：<a
             href="https://tw.mail.yahoo.com/d/folders/1?.intl=tw&.lang=zh-Hant-TW"
             target="_blank"
             >jimmy123698745@yahoo.com.tw</a
@@ -108,6 +108,7 @@
                   >2021/07/20 - view ui 切版 & 資料流處理</TimelineItem
                 >
                 <TimelineItem color="red">2021/07/21 - 畫面細修</TimelineItem>
+                <TimelineItem color="red">2021/07/22 - 部屬</TimelineItem>
               </Timeline>
             </Col>
           </Row>
@@ -125,9 +126,11 @@
               <a href="https://github.com/JimmyAnso/mrt-price/tree/main"
                 >https://github.com/JimmyAnso/mrt-price/tree/main</a
               >
-              <br><br><br>
+              <br /><br /><br />
               <p>GitHub Pages：</p>
-              <a href="https://jimmyanso.github.io/mrt-price/">https://jimmyanso.github.io/mrt-price/</a>
+              <a href="https://jimmyanso.github.io/mrt-price/"
+                >https://jimmyanso.github.io/mrt-price/</a
+              >
             </Col>
           </Row>
         </p>
@@ -198,8 +201,8 @@ export default {
 #rate {
   margin-top: 50%;
 }
-.about_rate{
-  color:#f5a623;
+.about_rate {
+  color: #f5a623;
 }
 .anchor {
   position: absolute;
